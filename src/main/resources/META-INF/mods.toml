@@ -1,16 +1,16 @@
 modLoader="javafml"
 loaderVersion="[40,)"
 license="MIT License"
-#issueTrackerURL="https://change.me.to.your.issue.tracker.example.invalid/"
+issueTrackerURL="https://github.com/LegoMaster3650/Inventory-Crafter/issues"
 
 [[mods]]
 modId="inventory_crafter"
 version="${file.jarVersion}"
 displayName="Inventory Crafter"
 #updateJSONURL="https://change.me.example.invalid/updates.json"
-#displayURL="https://change.me.to.your.mods.homepage.example.invalid/"
-#logoFile="inventory_crafter.png"
-#credits="Joe Mama"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/inventory-crafter"
+logoFile="inventory_crafter.png"
+credits="Charm Mod (original button concept)"
 authors="LegoMaster3650"
 description='''
 Gives you a portable crafting table button/keybind if you have a crafting table item
