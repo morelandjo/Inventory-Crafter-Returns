@@ -4,9 +4,9 @@ import io._3650.inventory_crafter.InventoryCrafter;
 import io._3650.inventory_crafter.registry.config.Config;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 public class InventoryCrafterClient {
@@ -17,15 +17,13 @@ public class InventoryCrafterClient {
 	
 	public InventoryCrafterClient() {
 		IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-		bus.addListener(this::clientSetup);
+		bus.addListener(this::registerKeybinds);
 		bus.addListener(this::configLoad);
 		bus.addListener(this::configReload);
 	}
 	
-	public void clientSetup(FMLClientSetupEvent event) {
-		event.enqueueWork(() -> {
-			ModKeybinds.init();
-		});
+	public void registerKeybinds(RegisterKeyMappingsEvent event) {
+		ModKeybinds.init(event);
 	}
 	
 	public void configLoad(ModConfigEvent.Loading event) {

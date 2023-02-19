@@ -11,7 +11,7 @@ import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ContainerScreenEvent;
-import net.minecraftforge.client.event.ScreenEvent.InitScreenEvent;
+import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.TickEvent.ClientTickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -30,7 +30,7 @@ public class ClientEvents {
 	}
 	
 	@SubscribeEvent
-	public static void onScreenInit(InitScreenEvent.Post event) {
+	public static void onScreenInit(ScreenEvent.Init.Post event) {
 		Minecraft minecraft = Minecraft.getInstance();
 		if (minecraft.player == null || !(minecraft.screen instanceof InventoryScreen screen)) return;
 		
@@ -47,7 +47,7 @@ public class ClientEvents {
 	}
 	
 	@SubscribeEvent
-	public static void onGuiRender(ContainerScreenEvent.DrawBackground event) {
+	public static void onGuiRender(ContainerScreenEvent.Render.Background event) {
 		Minecraft minecraft = Minecraft.getInstance();
 		if (InventoryCrafterClient.inventoryButton == null || minecraft.player == null || minecraft.level == null || !(minecraft.screen instanceof InventoryScreen screen)) return;
 		

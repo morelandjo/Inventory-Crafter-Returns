@@ -6,7 +6,6 @@ import io._3650.inventory_crafter.network.NetworkHandler;
 import io._3650.inventory_crafter.registry.ModItemTags;
 import io._3650.inventory_crafter.registry.config.Config;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
@@ -25,7 +24,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 public class InventoryCrafter {
 	
 	public static final String MOD_ID = "inventory_crafter";
-	public static final Component CRAFTING_TABLE_TITLE = new TranslatableComponent("container.inventory_crafter.inventory_crafting");
+	public static final Component CRAFTING_TABLE_TITLE =Component.translatable("container.inventory_crafter.inventory_crafting");
 	
 	public InventoryCrafter() {
 		IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();

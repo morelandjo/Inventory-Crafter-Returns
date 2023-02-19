@@ -5,15 +5,15 @@ import com.mojang.blaze3d.platform.InputConstants;
 import io._3650.inventory_crafter.InventoryCrafter;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
-import net.minecraftforge.client.ClientRegistry;
+import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.client.settings.KeyConflictContext;
 
 public class ModKeybinds {
 	
 	public static final KeyMapping INVENTORY_CRAFTING = createKeybind("inventory_crafting", KeyConflictContext.UNIVERSAL, InputConstants.KEY_V, KeyMapping.CATEGORY_INVENTORY);
 	
-	public static void init() {
-		ClientRegistry.registerKeyBinding(INVENTORY_CRAFTING);
+	public static void init(RegisterKeyMappingsEvent event) {
+		event.register(INVENTORY_CRAFTING);
 	}
 	
 	private static KeyMapping createKeybind(String name, KeyConflictContext context, int keycode, String category) {
