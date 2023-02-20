@@ -31,7 +31,8 @@ public class InventoryCrafter {
 		
 		bus.addListener(this::setup);
 		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> InventoryCrafterClient::new);
-		
+
+		ModLoadingContext.get().registerConfig(Type.COMMON, Config.COMMON_SPEC, "inventory_crafter-common.toml");
 		ModLoadingContext.get().registerConfig(Type.CLIENT, Config.CLIENT_SPEC, "inventory_crafter-client.toml");
 		
 		MinecraftForge.EVENT_BUS.register(this);
@@ -44,7 +45,7 @@ public class InventoryCrafter {
 	}
 	
 	public static boolean hasCraftingTable(Player player) {
-		return player.getInventory().contains(ModItemTags.CRAFTING_TABLE);
+		return !Config.COMMON.requireCraftingTable.get() || player.getInventory().contains(ModItemTags.CRAFTING_TABLE);
 	}
 	
 	public static void openCrafting(ServerPlayer player) {

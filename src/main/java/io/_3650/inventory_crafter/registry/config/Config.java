@@ -3,6 +3,7 @@ package io._3650.inventory_crafter.registry.config;
 import org.apache.commons.lang3.tuple.Pair;
 
 import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
 import net.minecraftforge.common.ForgeConfigSpec.IntValue;
 
@@ -28,13 +29,27 @@ public class Config {
 		}
 	}
 	
+	public static class Common {
+		
+		public final BooleanValue requireCraftingTable;
+		
+		Common(ForgeConfigSpec.Builder builder) {
+			builder.push("balance");
+			
+			requireCraftingTable = builder.comment("Does the inventory crafting table require a crafting table to work?","Keeping this on is recommended for balance reasons.","[Default: true]").define("requireCraftingTable", true);
+			
+			builder.pop();
+		}
+		
+	}
+	
 	public static class Client {
 		
 		public final ConfigValue<String> preset;
 		public final IntValue buttonLeftX;
 		public final IntValue buttonTopY;
 		
-		public Client(ForgeConfigSpec.Builder builder) {
+		Client(ForgeConfigSpec.Builder builder) {
 			builder.push("button");
 			
 			preset = builder.comment(
@@ -52,10 +67,17 @@ public class Config {
 		
 	}
 	
+	public static final ForgeConfigSpec COMMON_SPEC;
+	public static final Common COMMON;
+	
 	public static final ForgeConfigSpec CLIENT_SPEC;
 	public static final Client CLIENT;
 	
 	static {
+		final Pair<Common, ForgeConfigSpec> commonSpecPair = new ForgeConfigSpec.Builder().configure(Common::new);
+		COMMON_SPEC = commonSpecPair.getRight();
+		COMMON = commonSpecPair.getLeft();
+		
 		final Pair<Client, ForgeConfigSpec> clientSpecPair = new ForgeConfigSpec.Builder().configure(Client::new);
 		CLIENT_SPEC = clientSpecPair.getRight();
 		CLIENT = clientSpecPair.getLeft();
