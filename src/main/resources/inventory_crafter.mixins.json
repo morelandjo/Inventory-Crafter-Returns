@@ -4,8 +4,7 @@
 	"compatibilityLevel": "JAVA_17",
 	"refmap": "inventory_crafter.refmap.json",
 	"mixins": [
-		"AbstractContainerScreenAccessor",
-		"ScreenInvoker"
+		"AbstractContainerScreenAccessor"
 	],
 	"client": [
 		"InventoryScreenMixin"
