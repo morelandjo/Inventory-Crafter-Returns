@@ -39,7 +39,7 @@ public abstract class InventoryScreenMixin<T extends AbstractContainerMenu> exte
 		this.addRenderableWidget(InventoryCrafterClient.inventoryButton);
 	}
 
-	@Inject(method = "lambda$init$0", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/ImageButton;setPosition(II)V", shift = Shift.AFTER))
+	@Inject(method = "(Lnet/minecraft/client/gui/components/Button;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/ImageButton;setPosition(II)V", shift = Shift.AFTER))
 	private void inventory_crafter_moveButton(Button button, CallbackInfo cb) {
 		if (InventoryCrafterClient.inventoryButton != null) InventoryCrafterClient.inventoryButton.setPosition(this.leftPos + Config.CLIENT.buttonLeftX.get(), this.topPos + Config.CLIENT.buttonTopY.get());
 	}
