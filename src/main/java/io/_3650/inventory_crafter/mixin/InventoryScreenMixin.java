@@ -28,7 +28,7 @@ public abstract class InventoryScreenMixin<T extends AbstractContainerMenu> exte
 		super(menu, inventory, title);
 	}
 	
-	@Inject(method = "init", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/inventory/InventoryScreen;addRenderableWidget(Lnet/minecraft/client/gui/components/events/GuiEventListener;)Lnet/minecraft/client/gui/components/events/GuiEventListener;"))
+	@Inject(method = "init", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/inventory/InventoryScreen;addRenderableWidget(Lnet/minecraft/client/gui/components/events/GuiEventListener;)Lnet/minecraft/client/gui/components/events/GuiEventListener;", shift = Shift.AFTER))
 	private void inventory_crafter_init(CallbackInfo ci) {
 		InventoryCrafterClient.inventoryButton = new ImageButton(leftPos + Config.CLIENT.buttonLeftX.get(), topPos + Config.CLIENT.buttonTopY.get(), 20, 18, 0, 0, 19, InventoryCrafterClient.BUTTON, clicked -> {
 			Minecraft minceraft = Minecraft.getInstance(); //resource leak warning wont shut if I do it in one line

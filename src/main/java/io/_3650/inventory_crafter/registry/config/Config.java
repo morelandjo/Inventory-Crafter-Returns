@@ -19,6 +19,10 @@ public class Config {
 			public static final int X = 124;
 			public static final int Y = 61;
 		}
+		public static final class PBook {
+			public static final int X = 104;
+			public static final int Y = 61;
+		}
 		public static final class PGrid {
 			public static final int X = 76;
 			public static final int Y = 26;
@@ -57,6 +61,7 @@ public class Config {
 					" NONE - No preset loading",
 					" DEFAULT - [140, 61] - To the right of the recipe book",
 					" CLOSE - [124, 61] - Close to the right of the recipe book",
+					" BOOK - [104, 61] - To the left of the inventory crafting grid",
 					" GRID - [76, 26] - To the left of the inventory crafting grid",
 					" BAD - [-36, 64] - At least none of the other presets are this bad").define("preset", "NONE");
 			buttonLeftX = builder.comment("X of the left edge of the button", "[Default: 140]").defineInRange("buttonLeftX", Presets.PDefault.X, -500, 500);

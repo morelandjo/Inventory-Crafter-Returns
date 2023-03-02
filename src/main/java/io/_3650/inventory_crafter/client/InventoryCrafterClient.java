@@ -53,6 +53,11 @@ public class InventoryCrafterClient {
 			Config.CLIENT.buttonTopY.set(Config.Presets.PClose.Y);
 			Config.CLIENT.preset.set("NONE");
 			break;
+		case "BOOK":
+			Config.CLIENT.buttonLeftX.set(Config.Presets.PBook.X);
+			Config.CLIENT.buttonTopY.set(Config.Presets.PBook.Y);
+			Config.CLIENT.preset.set("NONE");
+			break;
 		case "GRID":
 			Config.CLIENT.buttonLeftX.set(Config.Presets.PGrid.X);
 			Config.CLIENT.buttonTopY.set(Config.Presets.PGrid.Y);
