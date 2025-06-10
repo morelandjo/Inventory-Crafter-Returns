@@ -2,24 +2,22 @@ package io._3650.inventory_crafter.client;
 
 import io._3650.inventory_crafter.InventoryCrafter;
 import io._3650.inventory_crafter.registry.config.Config;
-import net.minecraft.client.gui.components.ImageButton;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.event.config.ModConfigEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.event.config.ModConfigEvent;
+import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 
 public class InventoryCrafterClient {
 	
-	public static final ResourceLocation BUTTON = new ResourceLocation(InventoryCrafter.MOD_ID, "textures/gui/button.png");
-	public static ImageButton inventoryButton;
+	public static final ResourceLocation BUTTON = ResourceLocation.fromNamespaceAndPath(InventoryCrafter.MOD_ID, "textures/gui/button.png");
+	public static Button inventoryButton;
 	static boolean buttonPendingReload = false;
 	
-	public InventoryCrafterClient() {
-		IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-		bus.addListener(this::registerKeybinds);
-		bus.addListener(this::configLoad);
-		bus.addListener(this::configReload);
+	public InventoryCrafterClient(IEventBus modEventBus) {
+		modEventBus.addListener(this::registerKeybinds);
+		modEventBus.addListener(this::configLoad);
+		modEventBus.addListener(this::configReload);
 	}
 	
 	public void registerKeybinds(RegisterKeyMappingsEvent event) {

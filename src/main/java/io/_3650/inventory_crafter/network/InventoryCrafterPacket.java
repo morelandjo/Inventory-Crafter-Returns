@@ -1,29 +1,33 @@
 package io._3650.inventory_crafter.network;
 
-import java.util.function.Supplier;
-
 import io._3650.inventory_crafter.InventoryCrafter;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.network.NetworkEvent;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
-public record InventoryCrafterPacket() {
+public record InventoryCrafterPacket() implements CustomPacketPayload {
 	
-	public static void encode(InventoryCrafterPacket packet, FriendlyByteBuf buffer) {
-		//nothing to store
+	public static final Type<InventoryCrafterPacket> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(InventoryCrafter.MOD_ID, "open_crafting"));
+	
+	public static final StreamCodec<FriendlyByteBuf, InventoryCrafterPacket> STREAM_CODEC = 
+		StreamCodec.unit(new InventoryCrafterPacket());
+	
+	@Override
+	public Type<InventoryCrafterPacket> type() {
+		return TYPE;
 	}
 	
-	public static InventoryCrafterPacket decode(FriendlyByteBuf buffer) {
-		return new InventoryCrafterPacket();
-	}
-	
-	public static void handle(InventoryCrafterPacket packet, Supplier<NetworkEvent.Context> ctx) {
-		ctx.get().enqueueWork(() -> {
-			ServerPlayer player = ctx.get().getSender();
-			if (player == null || player.level.isClientSide) return;
-			InventoryCrafter.openCrafting(player);
+	public static void handle(InventoryCrafterPacket packet, IPayloadContext context) {
+		System.out.println("InventoryCrafter: Packet received on server");
+		context.enqueueWork(() -> {
+			if (context.player() instanceof ServerPlayer serverPlayer) {
+				System.out.println("InventoryCrafter: Opening crafting for player " + serverPlayer.getName().getString());
+				InventoryCrafter.openCrafting(serverPlayer);
+			}
 		});
-		ctx.get().setPacketHandled(true);
 	}
 	
 }

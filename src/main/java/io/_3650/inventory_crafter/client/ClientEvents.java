@@ -7,44 +7,27 @@ import io._3650.inventory_crafter.network.NetworkHandler;
 import io._3650.inventory_crafter.registry.config.Config;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.ContainerScreenEvent;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.TickEvent.ClientTickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
+import net.neoforged.neoforge.client.event.ScreenEvent;
 
-@Mod.EventBusSubscriber(modid = InventoryCrafter.MOD_ID, value = Dist.CLIENT)
+@EventBusSubscriber(modid = InventoryCrafter.MOD_ID, value = Dist.CLIENT)
 public class ClientEvents {
 	
 	@SubscribeEvent
-	public static void onKeyPress(ClientTickEvent event) {
-		if (event.phase == TickEvent.Phase.END && Minecraft.getInstance().level != null) {
+	public static void onClientTickEnd(ClientTickEvent.Post event) {
+		if (Minecraft.getInstance().level != null) {
 			while (ModKeybinds.INVENTORY_CRAFTING.consumeClick()) {
+				System.out.println("InventoryCrafter: Keybind pressed, sending packet");
 				sendOpenPacket();
 			}
 		}
 	}
 	
-//	@SubscribeEvent
-//	public static void onScreenInit(InitScreenEvent.Post event) {
-//		Minecraft minecraft = Minecraft.getInstance();
-//		if (minecraft.player == null || !(minecraft.screen instanceof InventoryScreen screen)) return;
-//		
-//		int leftPos = ((AbstractContainerScreenAccessor)screen).getLeftPos();
-//		int topPos = ((AbstractContainerScreenAccessor)screen).getTopPos();
-//		
-//		InventoryCrafterClient.inventoryButton = new ImageButton(leftPos + Config.CLIENT.buttonLeftX.get(), topPos + Config.CLIENT.buttonTopY.get(), 20, 18, 0, 0, 19, InventoryCrafterClient.BUTTON, clicked -> {
-//			Minecraft minceraft = Minecraft.getInstance(); //resource leak warning wont shut if I do it in one line
-//			if (InventoryCrafter.hasCraftingTable(minceraft.player)) sendOpenPacket();
-//		});
-//		
-//		InventoryCrafterClient.inventoryButton.visible = InventoryCrafter.hasCraftingTable(minecraft.player);
-//		((ScreenInvoker)screen).callAddRenderableWidget(InventoryCrafterClient.inventoryButton);
-//	}
-	
 	@SubscribeEvent
-	public static void onGuiRender(ContainerScreenEvent.Render.Background event) {
+	public static void onScreenRender(ScreenEvent.Render.Post event) {
 		Minecraft minecraft = Minecraft.getInstance();
 		if (InventoryCrafterClient.inventoryButton == null || minecraft.player == null || minecraft.level == null || !(minecraft.screen instanceof InventoryScreen screen)) return;
 		
@@ -60,6 +43,7 @@ public class ClientEvents {
 	}
 	
 	private static void sendOpenPacket() {
+		System.out.println("InventoryCrafter: Sending packet to server");
 		NetworkHandler.sendToServer(new InventoryCrafterPacket());
 	}
 	

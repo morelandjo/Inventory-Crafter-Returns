@@ -1,27 +1,30 @@
 package io._3650.inventory_crafter.network;
 
 import io._3650.inventory_crafter.InventoryCrafter;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.network.NetworkRegistry;
-import net.minecraftforge.network.simple.SimpleChannel;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.network.PacketDistributor;
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
+import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 
+@EventBusSubscriber(modid = InventoryCrafter.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 public class NetworkHandler {
 
-	private static final String PROTOCOL_VERSION = "1.0.0";
-	public static final SimpleChannel INSTANCE = NetworkRegistry.newSimpleChannel(
-			new ResourceLocation(InventoryCrafter.MOD_ID, "network"),
-			() -> PROTOCOL_VERSION,
-			PROTOCOL_VERSION::equals,
-			PROTOCOL_VERSION::equals);
-	
-	private static int id = 0;
-	
-	public static void init() {
-		INSTANCE.registerMessage(id++, InventoryCrafterPacket.class, InventoryCrafterPacket::encode, InventoryCrafterPacket::decode, InventoryCrafterPacket::handle);
+	@SubscribeEvent
+	public static void register(RegisterPayloadHandlersEvent event) {
+		System.out.println("InventoryCrafter: Registering network packets");
+		PayloadRegistrar registrar = event.registrar("1");
+		registrar.playToServer(
+			InventoryCrafterPacket.TYPE,
+			InventoryCrafterPacket.STREAM_CODEC,
+			InventoryCrafterPacket::handle
+		);
+		System.out.println("InventoryCrafter: Network packets registered successfully");
 	}
 	
-	public static <MSG> void sendToServer(MSG msg) {
-		INSTANCE.sendToServer(msg);
+	public static void sendToServer(CustomPacketPayload payload) {
+		PacketDistributor.sendToServer(payload);
 	}
 	
 }

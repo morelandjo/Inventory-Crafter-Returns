@@ -8,6 +8,6 @@ import net.minecraft.world.item.Item;
 
 public class ModItemTags {
 	
-	public static final TagKey<Item> CRAFTING_TABLE = ItemTags.create(new ResourceLocation(InventoryCrafter.MOD_ID, "crafting_tables"));
+	public static final TagKey<Item> CRAFTING_TABLE = ItemTags.create(ResourceLocation.fromNamespaceAndPath(InventoryCrafter.MOD_ID, "crafting_tables"));
 	
 }
