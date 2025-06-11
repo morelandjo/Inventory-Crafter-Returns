@@ -12,13 +12,13 @@
       "projectName": "inventory_crafter",
       "mainClass": "net.neoforged.devlaunch.Main",
       "args": [
-        "@/Users/josh/Documents/minecraft modding/Inventory Crafting Returns/Inventory-Crafter-Returns/build/moddev/clientRunProgramArgs.txt"
+        "@D:\\MinecraftMods\\Inventory Crafter Returns\\Inventory-Crafter-Returns\\build\\moddev\\clientRunProgramArgs.txt"
       ],
       "vmArgs": [
-        "@/Users/josh/Documents/minecraft modding/Inventory Crafting Returns/Inventory-Crafter-Returns/build/moddev/clientRunVmArgs.txt",
-        "-Dfml.modFolders\u003dinventory_crafter%%/Users/josh/Documents/minecraft modding/Inventory Crafting Returns/Inventory-Crafter-Returns/bin/main"
+        "@D:\\MinecraftMods\\Inventory Crafter Returns\\Inventory-Crafter-Returns\\build\\moddev\\clientRunVmArgs.txt",
+        "-Dfml.modFolders\u003dinventory_crafter%%D:\\MinecraftMods\\Inventory Crafter Returns\\Inventory-Crafter-Returns\\bin\\main"
       ],
-      "cwd": "${workspaceFolder}/run",
+      "cwd": "${workspaceFolder}\\run",
       "env": {},
       "console": "internalConsole",
       "shortenCommandLine": "none"
@@ -34,13 +34,13 @@
       "projectName": "inventory_crafter",
       "mainClass": "net.neoforged.devlaunch.Main",
       "args": [
-        "@/Users/josh/Documents/minecraft modding/Inventory Crafting Returns/Inventory-Crafter-Returns/build/moddev/dataRunProgramArgs.txt"
+        "@D:\\MinecraftMods\\Inventory Crafter Returns\\Inventory-Crafter-Returns\\build\\moddev\\dataRunProgramArgs.txt"
       ],
       "vmArgs": [
-        "@/Users/josh/Documents/minecraft modding/Inventory Crafting Returns/Inventory-Crafter-Returns/build/moddev/dataRunVmArgs.txt",
-        "-Dfml.modFolders\u003dinventory_crafter%%/Users/josh/Documents/minecraft modding/Inventory Crafting Returns/Inventory-Crafter-Returns/bin/main"
+        "@D:\\MinecraftMods\\Inventory Crafter Returns\\Inventory-Crafter-Returns\\build\\moddev\\dataRunVmArgs.txt",
+        "-Dfml.modFolders\u003dinventory_crafter%%D:\\MinecraftMods\\Inventory Crafter Returns\\Inventory-Crafter-Returns\\bin\\main"
       ],
-      "cwd": "${workspaceFolder}/run",
+      "cwd": "${workspaceFolder}\\run",
       "env": {},
       "console": "internalConsole",
       "shortenCommandLine": "none"
@@ -56,13 +56,13 @@
       "projectName": "inventory_crafter",
       "mainClass": "net.neoforged.devlaunch.Main",
       "args": [
-        "@/Users/josh/Documents/minecraft modding/Inventory Crafting Returns/Inventory-Crafter-Returns/build/moddev/gameTestServerRunProgramArgs.txt"
+        "@D:\\MinecraftMods\\Inventory Crafter Returns\\Inventory-Crafter-Returns\\build\\moddev\\gameTestServerRunProgramArgs.txt"
       ],
       "vmArgs": [
-        "@/Users/josh/Documents/minecraft modding/Inventory Crafting Returns/Inventory-Crafter-Returns/build/moddev/gameTestServerRunVmArgs.txt",
-        "-Dfml.modFolders\u003dinventory_crafter%%/Users/josh/Documents/minecraft modding/Inventory Crafting Returns/Inventory-Crafter-Returns/bin/main"
+        "@D:\\MinecraftMods\\Inventory Crafter Returns\\Inventory-Crafter-Returns\\build\\moddev\\gameTestServerRunVmArgs.txt",
+        "-Dfml.modFolders\u003dinventory_crafter%%D:\\MinecraftMods\\Inventory Crafter Returns\\Inventory-Crafter-Returns\\bin\\main"
       ],
-      "cwd": "${workspaceFolder}/run",
+      "cwd": "${workspaceFolder}\\run",
       "env": {},
       "console": "internalConsole",
       "shortenCommandLine": "none"
@@ -78,13 +78,13 @@
       "projectName": "inventory_crafter",
       "mainClass": "net.neoforged.devlaunch.Main",
       "args": [
-        "@/Users/josh/Documents/minecraft modding/Inventory Crafting Returns/Inventory-Crafter-Returns/build/moddev/serverRunProgramArgs.txt"
+        "@D:\\MinecraftMods\\Inventory Crafter Returns\\Inventory-Crafter-Returns\\build\\moddev\\serverRunProgramArgs.txt"
       ],
       "vmArgs": [
-        "@/Users/josh/Documents/minecraft modding/Inventory Crafting Returns/Inventory-Crafter-Returns/build/moddev/serverRunVmArgs.txt",
-        "-Dfml.modFolders\u003dinventory_crafter%%/Users/josh/Documents/minecraft modding/Inventory Crafting Returns/Inventory-Crafter-Returns/bin/main"
+        "@D:\\MinecraftMods\\Inventory Crafter Returns\\Inventory-Crafter-Returns\\build\\moddev\\serverRunVmArgs.txt",
+        "-Dfml.modFolders\u003dinventory_crafter%%D:\\MinecraftMods\\Inventory Crafter Returns\\Inventory-Crafter-Returns\\bin\\main"
       ],
-      "cwd": "${workspaceFolder}/run",
+      "cwd": "${workspaceFolder}\\run",
       "env": {},
       "console": "internalConsole",
       "shortenCommandLine": "none"
