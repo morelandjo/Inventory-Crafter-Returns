@@ -16,6 +16,9 @@ description='''
 Gives you a portable crafting table button/keybind if you have a crafting table item
 '''
 
+[modproperties.inventory_crafter]
+	mixinConfigs=["inventory_crafter.mixins.json"]
+
 [[dependencies.inventory_crafter]]
 	modId="neoforge"
 	mandatory=true

@@ -2,7 +2,6 @@ package io._3650.inventory_crafter.mixin;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.At.Shift;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
@@ -21,37 +20,60 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 
 @Mixin(InventoryScreen.class)
 public abstract class InventoryScreenMixin<T extends AbstractContainerMenu> extends AbstractContainerScreen<T> {
-	
 	public InventoryScreenMixin(T menu, Inventory inventory, Component title) {
 		super(menu, inventory, title);
 	}
 	
-	@Inject(method = "init", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/inventory/InventoryScreen;addRenderableWidget(Lnet/minecraft/client/gui/components/events/GuiEventListener;)Lnet/minecraft/client/gui/components/events/GuiEventListener;", shift = Shift.AFTER))
+	@Inject(method = "init", at = @At("TAIL"))
 	private void inventory_crafter_init(CallbackInfo ci) {
+		System.out.println("InventoryCrafter: InventoryScreenMixin init called");
+		Minecraft minecraft = Minecraft.getInstance();
+		
+		boolean hasCraftingTable = InventoryCrafter.hasCraftingTable(minecraft.player);
+		System.out.println("InventoryCrafter: Player has crafting table: " + hasCraftingTable);
+		
+		int leftPos = ((AbstractContainerScreenAccessor)this).getLeftPos();
+		int topPos = ((AbstractContainerScreenAccessor)this).getTopPos();
+		int buttonX = leftPos + Config.CLIENT.buttonLeftX.get();
+		int buttonY = topPos + Config.CLIENT.buttonTopY.get();
+		
+		System.out.println("InventoryCrafter: Button position: " + buttonX + ", " + buttonY + " (config: " + Config.CLIENT.buttonLeftX.get() + ", " + Config.CLIENT.buttonTopY.get() + ")");
+		
 		InventoryCrafterClient.inventoryButton = Button.builder(Component.empty(), clicked -> {
-			Minecraft minecraft = Minecraft.getInstance();
+			System.out.println("InventoryCrafter: Button clicked!");
 			if (InventoryCrafter.hasCraftingTable(minecraft.player)) {
+				System.out.println("InventoryCrafter: Sending packet to server");
 				NetworkHandler.sendToServer(new InventoryCrafterPacket());
-			}
-		})
-		.bounds(leftPos + Config.CLIENT.buttonLeftX.get(), topPos + Config.CLIENT.buttonTopY.get(), 20, 18)
+			} else {
+				System.out.println("InventoryCrafter: Player doesn't have crafting table");
+			}		})
+		.bounds(buttonX, buttonY, 20, 18)
 		.build(builder -> new Button(builder) {
-			@Override
-			protected void renderWidget(net.minecraft.client.gui.GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+			@Override			protected void renderWidget(net.minecraft.client.gui.GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
 				int x = getX();
 				int y = getY();
-				int textureY = isHoveredOrFocused() ? 19 : 0;
-				guiGraphics.blit(InventoryCrafterClient.BUTTON, x, y, 0, textureY, 20, 18);
+				boolean hovered = isHoveredOrFocused();
+				
+				// Debug output
+				System.out.println("InventoryCrafter: Button render - x=" + x + ", y=" + y + ", hovered=" + hovered);
+				
+				// Render the texture
+				try {
+					int textureY = hovered ? 19 : 0;
+					// Use the correct blit signature: button is 20x18, hover at y=19, sheet is 256x256
+					guiGraphics.blit(net.minecraft.client.renderer.RenderType::guiTextured, InventoryCrafterClient.BUTTON, x, y, 0, textureY, 20, 18, 256, 256);
+				} catch (Exception e) {
+					// Fallback rendering if texture fails
+					System.out.println("InventoryCrafter: Texture rendering failed: " + e.getMessage());
+					guiGraphics.fill(x, y, x + getWidth(), y + getHeight(), isHoveredOrFocused() ? 0xFFFF0000 : 0xFF888888);
+				}
 			}
 		});
 		
-		InventoryCrafterClient.inventoryButton.visible = InventoryCrafter.hasCraftingTable(minecraft.player);
+		InventoryCrafterClient.inventoryButton.visible = hasCraftingTable;
+		System.out.println("InventoryCrafter: Button visible: " + InventoryCrafterClient.inventoryButton.visible);
+		
 		this.addRenderableWidget(InventoryCrafterClient.inventoryButton);
+		System.out.println("InventoryCrafter: Button added to screen");
 	}
-
-	@Inject(method = "(Lnet/minecraft/client/gui/components/Button;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/Button;setPosition(II)V", shift = Shift.AFTER))
-	private void inventory_crafter_moveButton(Button button, CallbackInfo cb) {
-		if (InventoryCrafterClient.inventoryButton != null) InventoryCrafterClient.inventoryButton.setPosition(this.leftPos + Config.CLIENT.buttonLeftX.get(), this.topPos + Config.CLIENT.buttonTopY.get());
-	}
-	
 }
